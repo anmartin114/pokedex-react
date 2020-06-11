@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Acme&display=swap");
 
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
 .container {
   margin: 25px;
   display: grid;
@@ -7,6 +9,7 @@
   grid-gap: 1rem;
   justify-content: center;
   align-items: center;
+  font-family: "Roboto";
 }
 
 .card {
@@ -19,6 +22,8 @@
   background-color: whitesmoke;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  color: rgb(30, 30, 30);
 }
 
 .card:hover {
@@ -31,21 +36,36 @@
 
 header {
   background-color: rgb(255, 55, 55);
-  padding: 15px;
+  padding: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
   display: flex;
+  justify-content: space-between;
 }
 
 h1 {
   font-family: "Acme";
+  font-size: 40px;
+  color: rgb(30, 30, 30);
+  text-shadow: 2px 2px rgb(248, 236, 66);
+}
+
+header h1 {
+  font-size: 50px;
+  margin-left: 30px;
 }
 
 .search {
-  padding: 25px;
+  padding: 35px;
+  margin-top: 15px;
 }
 
 input {
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: 8px 15px;
+  border-radius: 8px;
   border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+input:focus {
+  outline: none;
 }

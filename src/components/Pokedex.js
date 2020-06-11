@@ -7,13 +7,13 @@ const Pokedex = (props) => {
   const { history } = props;
   const [filter, setFilter] = useState("");
 
-  const handleSearchange = (e) => {
+  const handleSearch = (e) => {
     setFilter(e.target.value);
   };
 
   useEffect(() => {
     axios
-      .get(`https://pokeapi.co/api/v2/pokemon?limit=150/`)
+      .get(`https://pokeapi.co/api/v2/pokemon?limit=807/`)
       .then(function (response) {
         const { data } = response;
         const { results } = data;
@@ -32,16 +32,14 @@ const Pokedex = (props) => {
   }, []);
 
   const getCard = (pokeId) => {
-    console.log(pokemonData[pokeId]);
-
     const { id, name, sprite } = pokemonData[pokeId];
-
+    const nameCap = name.charAt(0).toUpperCase() + name.slice(1);
     return (
       <section key={pokeId}>
         <div className="card" onClick={() => history.push(`/${id}`)}>
           <p className="id">{`${id}`}</p>
-          <img className="img" src={sprite} />
-          <p className="name">{`${name}`}</p>
+          <img className="img" alt="" src={sprite} />
+          <p className="name">{`${nameCap}`}</p>
         </div>
       </section>
     );
@@ -56,12 +54,12 @@ const Pokedex = (props) => {
             type="text"
             name="search"
             placeholder="search"
-            onChange={handleSearchange}
+            onChange={handleSearch}
           />
         </div>
       </header>
       <section>
-        <div class="container">
+        <div className="container">
           {Object.keys(pokemonData).map(
             (pokeId) =>
               pokemonData[pokeId].name.includes(filter) && getCard(pokeId)

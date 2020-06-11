@@ -20,29 +20,28 @@ const DetailView = (props) => {
       });
   }, [pokeid]);
 
-  const getPokemon = () => {
-    const { name, id, species, height, weight, types, sprites } = pokemon;
+  const getPokemon = (pokemon) => {
+    const { name, id, height, weight, types } = pokemon;
     const fullImageUrl = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
-    const { front_default } = sprites;
+    const nameCap = name.charAt(0).toUpperCase() + name.slice(1);
+
+    const pokeTypes = pokemon.types.map((type) => type.type.name);
 
     return (
-      <div className="content">
-        <h1>{`${id}`}</h1>
-        <img src={fullImageUrl} className="img-large" />
-        <h1>{`${name}`}</h1>
-        <h3>Pokemon Info</h3>
-
-        <h4>Type: </h4>
-        {types.map((typeInfo) => {
-          const { type } = typeInfo;
-          const { name } = type;
-          return <h4 key={name}> {`${name}`}</h4>;
-        })}
-
-        <p>Species: {species.name}</p>
-        <p>Height: {height}</p>
-        <p>Weight: {weight}</p>
-      </div>
+      <>
+        <div className="content">
+          <h1>{`${id}`}</h1>
+          <img src={fullImageUrl} className="img-large" alt="" />
+          <h1>{`${nameCap}`}</h1>
+          <div className="typeDiv">
+            <h4>Type: </h4>
+            <h4 className={pokeTypes[0]}>{pokeTypes[0]}</h4>
+            <h4 className={pokeTypes[1]}>{pokeTypes[1]}</h4>
+          </div>
+          <p>Height: {height}</p>
+          <p>Weight: {weight}</p>
+        </div>
+      </>
     );
   };
 
@@ -50,10 +49,13 @@ const DetailView = (props) => {
     <>
       {pokemon === undefined && <h1>loading...</h1>}
       {pokemon !== undefined && getPokemon(pokemon)}
-      {pokemon === false && <h1>Pokemon not found</h1>}
 
       {pokemon !== undefined && (
-        <button onClick={() => history.push("/")}>back to pokedex</button>
+        <div className="buttonDiv">
+          <button className="back" onClick={() => history.push("/")}>
+            back to pokedex
+          </button>
+        </div>
       )}
     </>
   );
