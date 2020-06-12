@@ -21,11 +21,26 @@ const DetailView = (props) => {
   }, [pokeid]);
 
   const getPokemon = (pokemon) => {
-    const { name, id, height, weight, types } = pokemon;
+    const { name, id, height, weight, sprites } = pokemon;
     const fullImageUrl = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
     const nameCap = name.charAt(0).toUpperCase() + name.slice(1);
 
     const pokeTypes = pokemon.types.map((type) => type.type.name);
+
+    const pokeStats = pokemon.stats.map(
+      (stats) =>
+        stats.stat.name.charAt(0).toUpperCase() + stats.stat.name.slice(1)
+    );
+
+    const pokeStatNum = pokemon.stats.map((stats) => stats.base_stat);
+
+    const pokeAbilities = pokemon.abilities.map(
+      (abilities) =>
+        abilities.ability.name.charAt(0).toUpperCase() +
+        abilities.ability.name.slice(1)
+    );
+
+    console.log(pokemon);
 
     return (
       <>
@@ -34,12 +49,48 @@ const DetailView = (props) => {
           <img src={fullImageUrl} className="img-large" alt="" />
           <h1>{`${nameCap}`}</h1>
           <div className="typeDiv">
-            <h4>Type: </h4>
-            <h4 className={pokeTypes[0]}>{pokeTypes[0]}</h4>
-            <h4 className={pokeTypes[1]}>{pokeTypes[1]}</h4>
+            <h3>Type: </h3>
+            <h3 className={pokeTypes[0]}>{pokeTypes[0]}</h3>
+            <h3 className={pokeTypes[1]}>{pokeTypes[1]}</h3>
           </div>
           <p>Height: {height}</p>
           <p>Weight: {weight}</p>
+          <div className="info">
+            <div className="stats">
+              <h4>Stats: </h4>
+              <p>
+                {pokeStats[0]}: {pokeStatNum[0]}{" "}
+              </p>
+              <p>
+                {pokeStats[1]}: {pokeStatNum[1]}{" "}
+              </p>
+              <p>
+                {pokeStats[2]}: {pokeStatNum[2]}{" "}
+              </p>
+              <p>
+                {pokeStats[3]}: {pokeStatNum[3]}{" "}
+              </p>
+              <p>
+                {pokeStats[4]}: {pokeStatNum[4]}{" "}
+              </p>
+              <p>
+                {pokeStats[5]}: {pokeStatNum[5]}{" "}
+              </p>
+            </div>
+
+            <div className="things">
+              <div className="abilities">
+                <h4>Abilities: </h4>
+                <p>{pokeAbilities[0]}</p>
+                <p>{pokeAbilities[1]}</p>
+                <p>{pokeAbilities[2]}</p>
+              </div>
+              <div className="icons">
+                <img src={sprites.front_default}></img>
+                <img src={sprites.back_default}></img>
+              </div>
+            </div>
+          </div>
         </div>
       </>
     );
@@ -53,7 +104,7 @@ const DetailView = (props) => {
       {pokemon !== undefined && (
         <div className="buttonDiv">
           <button className="back" onClick={() => history.push("/")}>
-            back to pokedex
+            Back to Pokedex
           </button>
         </div>
       )}
